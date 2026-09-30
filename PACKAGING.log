@@ -1,10 +1,10 @@
-2026-09-30 22:58 BST
+2026-09-30 23:04 BST
 repo: atongsa/luanti_dotA
 file: PACKAGING.log
 purpose: how to test this game on your machine, how to zip it, and how publishing works
 
 This is a log, not a design doc. The design is GAME_MODE.md. Read that first.
-The playable slice is smaller than the poem: hall, gold, one lotus task, one wave of three suitors.
+The playable slice is smaller than the poem: hall, gold, lotus task, journal item picks, one wave.
 
 --------------------------------------------------------------------------------
 LOCAL TEST
@@ -33,6 +33,7 @@ LOCAL TEST
    Any world name. Leave the mapgen dropdown alone.
    This game switches mapgen to singlenode and builds its own pad.
    Do not open an old world from another game. The pad will not match.
+   If you already had a world from before the journal existed, make a new one.
 
 6. What you should see
    Missing textures are possible (purple/black). Point at a block: the name is the UI.
@@ -41,19 +42,54 @@ LOCAL TEST
 
 7. How to play the slice
    You stand near the Hall of Ithaca.
+   A journal opens almost at once. Take one item. See JOURNAL below.
    Punch a gold stone. +5 gold. It goes dull and comes back after a few seconds.
-   Slot 1 is a sword. Punch the three suitors walking toward the hall.
-   Right-click the lotus stand and refuse it.
-   Each suitor who reaches the hall takes 40 hall life. Hall starts at 100.
-   Three arrivals kill the hall.
-   Win: lotus refused, all three suitors dead, hall above 0.
+   Slot 1 is a sword. Slot 2 is the journal. Punch with the journal to open it again.
+   About 12 seconds in: three suitors and one taller lead suitor walk the path.
+   Suitors hurt you if they stand on you. The lead hits harder and has more life.
+   Right-click the lotus stand and refuse it. That also gives experience.
+   A normal suitor who reaches the hall takes 30 hall life. The lead takes 50.
+   Hall starts at 100.
+   Win: lotus refused, all four dead, hall above 0.
    Lose: hall reaches 0.
-   Chat command /ml prints gold, hall, and the task.
-   Chat command /ml_reset (needs the server privilege) puts the slice back to the start.
+   Chat command /ml prints gold, hall, task, and skills.
+   Chat command /ml_reset (needs the server privilege) puts the slice back to the start
+   and opens the journal again.
 
 8. If the pad is missing or you fall forever
    You opened a world that was not created with this game, or mapgen already ran as something else.
    Make a new world with game luanti_dotA. Do not copy an old world.mt over it.
+
+--------------------------------------------------------------------------------
+JOURNAL
+--------------------------------------------------------------------------------
+
+The journal is where you take items. Each item is one skill.
+Names are original. They are not copied from another game.
+
+You pick when the match starts, and again each time you level.
+Level costs 10 experience. Kills and the lotus give experience.
+You can own more than one. You cannot take the same item twice.
+
+  armor   Banded hide     skill Bronze voice
+          Look at a suitor and cast. He stops for 3 seconds.
+          Suitors that touch you hit for 1 instead of 3.
+
+  weapon  Ash brand       skill Brand
+          For 8 seconds your punches hit much harder.
+          This is what makes the lead suitor die quickly.
+
+  fruit   Lotus fruit     skill Bitter fruit
+          Heal to full and take 5 gold.
+
+  blood   Dark blood      skill Cut the vein
+          Nearest suitor: if he is already wounded, he dies.
+          If he is healthy, he only loses a large cut of life.
+          Use Brand first, hit the lead, then blood, and he drops.
+
+Open: punch the journal item, or type /journal
+Cast: button in the journal, or /skill armor   /skill weapon   /skill fruit   /skill blood
+Each skill has a short wait. The game tells you if it is too soon.
 
 --------------------------------------------------------------------------------
 ZIP
@@ -104,3 +140,4 @@ WHAT IS NOT IN THIS SLICE
 
 No workers. No build menu. No cyclops or later stops. No second player.
 No real isometric camera. No ContentDB package id.
+Four items only. No skill trees beyond those four. No copied hero kits.

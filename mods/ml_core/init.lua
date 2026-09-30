@@ -65,13 +65,18 @@ function ml.add_xp(player, n)
 	local meta = player:get_meta()
 	local xp = meta:get_int("ml_xp") + n
 	local level = ml.level(player)
+	local gained = false
 	while xp >= 10 do
 		xp = xp - 10
 		level = level + 1
+		gained = true
 		minetest.chat_send_player(player:get_player_name(), "Level " .. level)
 	end
 	meta:set_int("ml_xp", xp)
 	meta:set_int("ml_level", level)
+	if gained and ml.offer_pick then
+		ml.offer_pick(player)
+	end
 end
 
 function ml.check_end()
@@ -132,6 +137,20 @@ function ml.creep_down()
 	end
 end
 
+local function clear_hero_meta(player)
+	local meta = player:get_meta()
+	meta:set_int("ml_gold", 0)
+	meta:set_int("ml_xp", 0)
+	meta:set_int("ml_level", 1)
+	meta:set_int("ml_pending", 0)
+	meta:set_int("ml_did_intro", 0)
+	meta:set_string("ml_owned", "")
+	meta:set_string("ml_brand_until", "")
+	for _, id in ipairs({"armor", "weapon", "fruit", "blood"}) do
+		meta:set_string("ml_cd_" .. id, "0")
+	end
+end
+
 minetest.register_chatcommand("ml", {
 	description = "Gold, hall life, and the current task",
 	func = function(name)
@@ -139,12 +158,17 @@ minetest.register_chatcommand("ml", {
 		if not player then
 			return false, "No player."
 		end
+		local skills = ""
+		if ml.skill_line then
+			skills = "\n" .. ml.skill_line(player)
+		end
 		local line = "gold " .. ml.gold(player)
 			.. "  level " .. ml.level(player)
 			.. "  xp " .. ml.xp(player) .. "/10"
 			.. "  hall " .. ml.hall() .. "/100"
 			.. "  wave " .. ml.storage:get_int("wave")
 			.. "\n" .. ml.task_line()
+			.. skills
 		if ml.outcome() ~= "" then
 			line = line .. "\noutcome: " .. ml.outcome()
 		end
@@ -163,10 +187,7 @@ minetest.register_chatcommand("ml_reset", {
 		ml.storage:set_string("outcome", "")
 		local player = minetest.get_player_by_name(name)
 		if player then
-			local meta = player:get_meta()
-			meta:set_int("ml_gold", 0)
-			meta:set_int("ml_xp", 0)
-			meta:set_int("ml_level", 1)
+			clear_hero_meta(player)
 		end
 		if ml.clear_suitors then
 			ml.clear_suitors()
@@ -177,6 +198,10 @@ minetest.register_chatcommand("ml_reset", {
 		if ml.schedule_wave then
 			ml.schedule_wave()
 		end
-		return true, "Slice reset."
+		if player and ml.offer_pick then
+			player:get_meta():set_int("ml_did_intro", 1)
+			ml.offer_pick(player)
+		end
+		return true, "Slice reset. Pick from the journal again."
 	end,
 })

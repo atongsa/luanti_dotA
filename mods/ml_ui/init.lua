@@ -1,10 +1,16 @@
 -- One HUD text line. Updated on a timer, not on every punch.
 
 local function line(player)
+	local skills = ""
+	if ml.skill_line then
+		skills = "\n" .. ml.skill_line(player)
+	end
 	local text = "Odysseus   gold " .. ml.gold(player)
 		.. "   lv " .. ml.level(player)
+		.. " (" .. ml.xp(player) .. "/10)"
 		.. "   hall " .. ml.hall() .. "/100\n"
 		.. ml.task_line()
+		.. skills
 	if ml.outcome() ~= "" then
 		text = text .. "\n" .. ml.outcome()
 	end
@@ -14,7 +20,7 @@ end
 local function ensure(player)
 	local meta = player:get_meta()
 	local id = meta:get_int("ml_hud")
-	if id ~= 0 then
+	if meta:get_int("ml_hud_on") == 1 and id ~= 0 then
 		player:hud_change(id, "text", line(player))
 		return
 	end
@@ -28,10 +34,11 @@ local function ensure(player)
 		number = 0xF2E6C8,
 	})
 	meta:set_int("ml_hud", id)
+	meta:set_int("ml_hud_on", 1)
 end
 
 minetest.register_on_joinplayer(function(player)
-	player:get_meta():set_int("ml_hud", 0)
+	player:get_meta():set_int("ml_hud_on", 0)
 	minetest.after(0.5, function()
 		if player:is_player() then
 			ensure(player)

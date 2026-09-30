@@ -1,0 +1,2 @@
+-- Template only. This slice does not load this file.
+-- The playable hero is the player, registered in mods/ml_heroes/init.lua.

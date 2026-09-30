@@ -1,0 +1,106 @@
+2026-09-30 22:58 BST
+repo: atongsa/luanti_dotA
+file: PACKAGING.log
+purpose: how to test this game on your machine, how to zip it, and how publishing works
+
+This is a log, not a design doc. The design is GAME_MODE.md. Read that first.
+The playable slice is smaller than the poem: hall, gold, one lotus task, one wave of three suitors.
+
+--------------------------------------------------------------------------------
+LOCAL TEST
+--------------------------------------------------------------------------------
+
+1. Install Luanti 5.6 or newer.
+   https://www.luanti.org/
+
+2. Get this repository onto the machine (git clone or a zip of the repo).
+
+3. The game directory must contain game.conf directly inside it.
+   The directory name Luanti shows is the folder name. Use luanti_dotA.
+
+4. Copy that folder into the user games directory. Typical paths:
+   Linux, older:        ~/.minetest/games/luanti_dotA
+   Linux, newer Luanti: ~/.local/share/luanti/games/luanti_dotA
+   Windows:             %APPDATA%\Luanti\games\luanti_dotA
+                        or %APPDATA%\Minetest\games\luanti_dotA
+   macOS:               ~/Library/Application Support/luanti/games/luanti_dotA
+                        or ~/Library/Application Support/minetest/games/luanti_dotA
+   If none of those exist: open Luanti, Credits tab, "Open user data directory",
+   then put the folder in games/ inside that directory.
+
+5. Start Luanti. Create a NEW world.
+   Game: luanti_dotA.
+   Any world name. Leave the mapgen dropdown alone.
+   This game switches mapgen to singlenode and builds its own pad.
+   Do not open an old world from another game. The pad will not match.
+
+6. What you should see
+   Missing textures are possible (purple/black). Point at a block: the name is the UI.
+   F5 turns on the debug HUD if you need node names.
+   F7 twice switches to third person. This is not a locked isometric camera.
+
+7. How to play the slice
+   You stand near the Hall of Ithaca.
+   Punch a gold stone. +5 gold. It goes dull and comes back after a few seconds.
+   Slot 1 is a sword. Punch the three suitors walking toward the hall.
+   Right-click the lotus stand and refuse it.
+   Each suitor who reaches the hall takes 40 hall life. Hall starts at 100.
+   Three arrivals kill the hall.
+   Win: lotus refused, all three suitors dead, hall above 0.
+   Lose: hall reaches 0.
+   Chat command /ml prints gold, hall, and the task.
+   Chat command /ml_reset (needs the server privilege) puts the slice back to the start.
+
+8. If the pad is missing or you fall forever
+   You opened a world that was not created with this game, or mapgen already ran as something else.
+   Make a new world with game luanti_dotA. Do not copy an old world.mt over it.
+
+--------------------------------------------------------------------------------
+ZIP
+--------------------------------------------------------------------------------
+
+The zip must have one top folder, and game.conf must be one level under it.
+
+Correct:
+  luanti_dotA/game.conf
+  luanti_dotA/mods/ml_core/init.lua
+  luanti_dotA/PACKAGING.log
+
+Wrong:
+  game.conf sitting at the root of the zip
+  a zip of the .git directory alone
+
+From the parent of the repo folder:
+
+  zip -r luanti_dotA.zip luanti_dotA -x '*.git*'
+
+Test the zip by deleting the games/luanti_dotA folder, unzipping this archive into games/,
+and starting a new world as in LOCAL TEST.
+
+--------------------------------------------------------------------------------
+PUBLISH
+--------------------------------------------------------------------------------
+
+The in-game browser is ContentDB: https://content.luanti.org/
+
+ContentDB only accepts packages under a license the FSF and/or the OSI call free.
+https://docs.luanti.org/about/contentdb/
+
+This repository is not under that kind of license. README.md says all rights reserved.
+ContentDB will not take this game while that stays true.
+This log does not change the license. Do not publish there unless you choose a free license on purpose.
+
+Until then, give people the git URL or the zip. They install it with LOCAL TEST.
+Luanti has no official "export this game as its own .exe" button.
+
+A private build that bundles the engine is a different project.
+The engine is LGPLv2.1. Your own game code can stay proprietary if you did not copy copyleft mods into it.
+Notes, not legal advice:
+https://docs.luanti.org/for-creators/distributing-games-outside-contentdb/
+
+--------------------------------------------------------------------------------
+WHAT IS NOT IN THIS SLICE
+--------------------------------------------------------------------------------
+
+No workers. No build menu. No cyclops or later stops. No second player.
+No real isometric camera. No ContentDB package id.

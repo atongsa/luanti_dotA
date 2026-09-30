@@ -1,0 +1,67 @@
+CHANGES.log
+repo: atongsa/luanti_dotA
+
+This file is the record of what changed.
+Agents: read GAME_MODE.md first. If the owner agrees an idea, write it there.
+If you change the repo, append an entry here in the same commit. Do not delete older entries.
+Commit messages start with: code from man_grok — <what> [<when>]
+
+--------------------------------------------------------------------------------
+2026-09-30 22:52 BST
+commit: c1bf9595a287f8aabc7cc068c1cba9d3b3bc0154
+what: Added GAME_MODE.md.
+why: The owner asked for a file that says this Luanti game mimics the 2002 RTS shape (hero, base, defense, tasks) as a new mode, without copying a commercial game.
+--------------------------------------------------------------------------------
+2026-09-30 22:53 BST
+commit: 8640c2bcefb334ee5ddddd262049291542ca3950
+what: GAME_MODE.md agents section.
+why: Any agent who opens the repo must read that file first and not guess a lane MOBA from the repo name.
+--------------------------------------------------------------------------------
+2026-09-30 22:56 BST
+commit: 8b3c37fb5e30efd652bfb717054655d712ee8bcb
+what: Story set to Homer's Odyssey, in poem order, through Ithaca.
+why: The owner said the story line follows that poem. Hero is Odysseus. The hall is the keep. Suitors are the pressure. Own short task text only. No modern translation pasted in.
+--------------------------------------------------------------------------------
+2026-09-30 22:58 BST
+commit: 86460e72fc148cee53e785edf428dd1f0a5b3abd
+what: First playable slice and PACKAGING.log.
+mods: ml_core, ml_map, ml_creeps, ml_heroes, ml_items, ml_ui, ml_camera, game.conf.
+slice: singlenode pad, hall, two gold stones, lotus stand, sword, HUD, one suitor wave.
+win: lotus refused, suitors dead, hall above 0. lose: hall at 0.
+why: The owner asked to create the game and a plain log for local test, zip, and publish.
+note: ContentDB will reject an all-rights-reserved game. PACKAGING.log says test locally or hand out a zip.
+not tested inside Luanti from the agent environment.
+--------------------------------------------------------------------------------
+2026-09-30 23:00 BST
+commit: 67c83905401d6ce8c4c21c3ab3715b83a4654325
+what: GAME_MODE.md built-slice section, so the design file no longer said the mods were empty.
+--------------------------------------------------------------------------------
+2026-09-30 23:04 BST
+commit: c64d95a1a4d20bc178291e09ab0f571d82878c8d
+what: Voyage journal. New mod ml_journal. ml_core levels open a pick. ml_creeps gained a lead suitor and contact damage. ml_ui shows skills.
+items agreed and added:
+  armor  Banded hide   Bronze voice   look-stun, weaker hits taken
+  weapon Ash brand     Brand          8 seconds of harder punches
+  fruit  Lotus fruit   Bitter fruit   heal and a little gold
+  blood  Dark blood    Cut the vein   execute a wounded suitor, or cut a healthy one
+why: The owner wants, during the journal, to pick armor, weapon, fruit, blood, level up, and gain skills that kill a normal enemy or a boss more easily. Names are original, not taken from DotA.
+wave is now three suitors plus one lead suitor.
+--------------------------------------------------------------------------------
+2026-09-30 23:05 BST
+commit: e5a147e599cd8a6a4bda8e9d934bdbe11beceeb2
+what: PACKAGING.log journal section and corrected wave numbers (four enemies, hall damage 30 or 50).
+how to cast: punch the journal, /journal, or /skill armor|weapon|fruit|blood.
+--------------------------------------------------------------------------------
+2026-09-30 23:07 BST
+what: Rewrote GAME_MODE.md so every agreed idea is in one place, and created this log.
+why: The owner said a new agent must read GAME_MODE.md and know what to do, and every agent who changes the repo must append this log and record agreed ideas in GAME_MODE.md.
+agreed rules now written down:
+  read GAME_MODE.md first
+  ideas go in GAME_MODE.md
+  changes go in CHANGES.log
+  no code until the owner says "grok code it", unless that message already tells you to build
+  commit message: code from man_grok — <what> [<when>]
+  2002 RTS shape on Luanti, Odyssey story, original ability names
+  journal picks on start and on level-up
+  workers and build menu agreed, not built
+  no locked isometric camera claimed

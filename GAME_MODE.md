@@ -1,5 +1,11 @@
 # Game mode
 
+## Agents
+
+If you are an agent (or any tool) reading this repository, **read this file first** before you read code, edit files, or propose a design. This file is the source of what the owner wants. Do not infer the game from the repo name, from DotA, or from empty mod folders. If this file and another file disagree, stop and ask the owner.
+
+## What this project is
+
 `luanti_dotA` is a new game mode on the [Luanti](https://www.luanti.org/) voxel engine.
 
 The shape it tries to follow is the 2002 real-time strategy: one hero you level, a base you build, a keep you defend, and tasks you complete on the map. It is **not** a lane-only match, and it is **not** a copy of any existing commercial RTS. Names, factions, heroes, buildings, items, maps, and story in this project are original.

@@ -4,6 +4,20 @@
 
 If you are an agent (or any tool) reading this repository, **read this file first** before you read code, edit files, or propose a design. This file is the source of what the owner wants. Do not infer the game from the repo name, from DotA, or from empty mod folders. If this file and another file disagree, stop and ask the owner.
 
+How to run or zip the game is `PACKAGING.log`, not this file.
+
+## Built slice
+
+The mods are no longer empty. What runs today is only the first slice:
+
+- a singlenode pad, the hall, two gold stones, a lotus stand
+- the player is Odysseus, with a sword, gold, experience, and a text HUD
+- one wave of three suitors
+- win if the lotus is refused, the three suitors are dead, and the hall is above 0
+- lose if the hall reaches 0
+
+Not built: workers, a build menu, towers, and poem stops after the lotus. Do not describe those as done.
+
 ## What this project is
 
 `luanti_dotA` is a new game mode on the [Luanti](https://www.luanti.org/) voxel engine.
@@ -46,7 +60,7 @@ A match is a small battlefield made of voxels.
 - **Tasks** follow the list in Story. They pay gold, experience, or a building unlock, or they open the next stop.
 - The match ends when the hall falls, or when the last task in the hall is done.
 
-Camera, movement, and the world stay Luanti: a true 3D voxel map, not a flat sprite battlefield. The camera is pulled back and angled so you can see the hall, the approach, and the hero at once.
+Camera, movement, and the world stay Luanti: a true 3D voxel map, not a flat sprite battlefield. The camera is pulled back and angled so you can see the hall, the approach, and the hero at once. The running slice only tilts the view and tells you to press F7. It is not a locked camera.
 
 ## What this is not
 
@@ -57,38 +71,33 @@ Camera, movement, and the world stay Luanti: a true 3D voxel map, not a flat spr
 
 ## How it maps onto this repository
 
-These folders are the mode's parts. They are still empty scaffolds.
-
 | Folder | Role in this mode |
 | --- | --- |
-| `ml_core` | Match clock, sides, gold, experience, hall health, win and loss, which voyage stop is current |
-| `ml_camera` | Pulled-back view over hero and hall |
-| `ml_map` | Authored ground, Ithaca hall, approach paths, one stop per task |
-| `ml_creeps` | Camps and timed waves, including the suitors at the hall |
-| `ml_heroes` | Odysseus. `heroes/hero_example.lua` is only a template until that hero exists |
-| `ml_items` | Gear from the voyage that changes his stats |
-| `ml_ui` | Health, mana, gold, the current poem task, build menu |
+| `ml_core` | Hall life, gold, experience, lotus flag, win and loss |
+| `ml_camera` | Look tilt at spawn. Not a real isometric camera |
+| `ml_map` | Pad, hall, gold stones, lotus stand |
+| `ml_creeps` | One wave of three suitors |
+| `ml_heroes` | The player as Odysseus, plus a sword. `heroes/hero_example.lua` is not loaded |
+| `ml_items` | One voyage token when the lotus is refused |
+| `ml_ui` | Text HUD: gold, level, hall, task |
 
-Workers, buildings, and task scripts do not have their own mods yet. They will hang off `ml_core` and `ml_map` until a split is actually needed.
+Workers, buildings, and later task scripts do not have their own mods yet.
 
 ## One match, in order
 
 1. The hero starts on the shore after the war. The hall on Ithaca already exists and is already under pressure.
-2. Workers at the hall gather one resource. Buildings spend it.
-3. The hero clears voyage stops in the order in Story.
-4. Waves walk an authored path toward the hall. Towers and anyone still there answer them.
+2. Workers at the hall gather one resource. Buildings spend it. Not in the slice. Gold stones stand in for gathering.
+3. The hero clears voyage stops in the order in Story. Only the lotus exists.
+4. Waves walk an authored path toward the hall. One wave exists. No towers.
 5. The last stop returns him to Ithaca. The match ends in the hall, or earlier if the hall falls.
 
-Numbers (wave timing, costs, map size) are not fixed in this file. They get decided when that system is actually built.
-
-The first playable slice does not need all 13 stops. It needs the hall, one voyage stop, and a pointer to the next. The order above is still the law for every stop added later.
+The first playable slice does not need all 13 stops. Later stops still have to follow the list above.
 
 ## Rules for content
 
 - Invent building names and ability names. Do not reuse names from commercial games.
 - Poem names stay poem names: Odysseus, Ithaca, Penelope, Telemachus, and the stops listed above.
-- One hero template first, then Odysseus only after that template can level, fight, and pick up an item.
-- Each task is data on the map (where, what the poem beat is, reward, next stop).
+- Each new task is data on the map (where, what the poem beat is, reward, next stop).
 
 ## Copyright
 

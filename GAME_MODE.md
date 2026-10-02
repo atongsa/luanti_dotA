@@ -20,7 +20,7 @@ How to run or zip the game is `PACKAGING.log`.
 
 ## What this game is
 
-A free 3D sandbox RPG that runs as a game inside [Luanti](https://www.luanti.org/). Install it on a laptop or a desktop and play it in Luanti's own 3D world. License is MIT.
+A free 3D sandbox RPG that runs as a game inside [Luanti](https://www.luanti.org/). The name is **luantidyssey**. Install it on a laptop or a desktop and play it in Luanti's own 3D world. License is MIT.
 
 The story is Homer's *Odyssey*. Odysseus is the hero. The look is Greek: stone, bronze, sea. Do not copy a film's costumes or another game's units.
 
@@ -30,10 +30,10 @@ You walk the voyage in the 3D world, fight, finish the poem's tasks, and keep th
 
 Not this:
 
+- not a DotA game, and not a lane MOBA
 - not a separate engine or a flat 2D game
 - not a locked isometric camera, and not a project that tries to build one
 - not a Warcraft III clone, and not a base-building strategy game
-- not a pure lane MOBA, even though the repo name says dotA
 - not World of Warcraft
 - not "win by digging the world away"
 - not a new plot in place of the poem
@@ -105,7 +105,7 @@ Workers, a build menu, and towers are not the game. They are not scheduled. Gold
 
 Only the lotus stop exists. The cyclops is next in the story and is not built.
 
-Not built: Greek models (the pad is still flat colors), stops after the lotus. Not wanted: a locked camera, a strategy base, a second player.
+Not built: Greek models (the pad is still flat colors), stops after the lotus. Not wanted: a locked camera, a strategy base, a second player, a DotA match.
 
 ## Repository map
 
@@ -142,6 +142,7 @@ Numbers that are not written here get decided when that system is built, then wr
 - Poem names stay poem names: Odysseus, Ithaca, Penelope, Telemachus, and the stops listed above.
 - Each new task is data on the map: where, which poem beat, reward, next stop.
 - The game is MIT so it can be published where Luanti requires a free license, and so it can be installed from a copy on a laptop or a desktop.
+- The install folder and `game.conf` name are `luantidyssey`.
 
 ## Copyright and publishing
 
@@ -151,4 +152,4 @@ The story outline follows Homer's *Odyssey*, which is in the public domain. Do n
 
 Luanti's own program is GNU LGPL v2.1. That is the engine, not this game.
 
-Publishing on ContentDB is allowed only while this MIT grant stays in place. Local install is in `PACKAGING.log`: copy the folder into Luanti's `games` directory and make a new world.
+Publishing on ContentDB is allowed only while this MIT grant stays in place. Local install is in `PACKAGING.log`: copy the folder into Luanti's `games` directory as `luantidyssey` and make a new world.

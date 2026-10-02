@@ -1,7 +1,8 @@
 BUILD.md
 Read GAME_MODE.md first. This file is only how to continue the build. It is not a second design.
 
-Last session: 2026-10-02. Repo atongsa/luanti_dotA, branch main.
+Last session: 2026-10-02. Repo atongsa/luantidyssey, branch main.
+The game id and the install folder are luantidyssey. It is not a DotA game.
 Not run inside Luanti from the agent side. The owner tests on a laptop or desktop.
 
 The game is a free MIT 3D sandbox RPG on Luanti. Story: Odyssey. The only Warcraft III borrow is the hero's levels and four upgradable skills. Do not build a locked camera. Do not build a strategy game.
@@ -24,8 +25,9 @@ START HERE NEXT SESSION
 WHAT ALREADY RUNS
 --------------------------------------------------------------------------------
 
-Luanti game. Copy the repo folder into the user games directory as luanti_dotA.
-New world. Game name luanti_dotA. Mapgen is forced to singlenode in ml_map.
+Luanti game. Copy the repo folder into the user games directory as luantidyssey.
+New world. Game name luantidyssey. Mapgen is forced to singlenode in ml_map.
+If an old folder is still named luanti_dotA, replace it. Old worlds from that name need a new world.
 Details of paths and the zip: PACKAGING.log. License is MIT (LICENSE, README.md).
 
 Player is Odysseus. Spawn near the hall, around 0,10,-6.
@@ -69,7 +71,7 @@ Mod storage (world): hall, wave (0 none, 1 running, 2 cleared), creeps_alive, lo
 DO NOT REDO
 --------------------------------------------------------------------------------
 
-Do not turn this back into a lane MOBA or a strategy game.
+Do not turn this back into a lane MOBA, a DotA game, or a strategy game.
 Do not build a locked isometric camera.
 Do not paste a modern translation of the Odyssey.
 Do not copy Warcraft or DotA names. The skill-point pattern is the only borrow.
@@ -82,3 +84,4 @@ LEFT UNFINISHED
 Greek meshes and textures.
 Poem stops after the lotus. Next one is the cyclops.
 A real ContentDB upload. The MIT grant is in the repo. The package was not submitted.
+The GitHub About line may still say "a dotA game". Change that sentence on the GitHub page if it is still there.

@@ -116,11 +116,11 @@ minetest.register_entity("ml_creeps:suitor", {
 			for _, player in ipairs(minetest.get_connected_players()) do
 				if vector.distance(player:get_pos(), pos) < 1.8 and player:get_hp() > 0 then
 					local dmg = 3
-					if ml.has_item and ml.has_item(player, "armor") then
-						dmg = 1
-					end
 					if self.boss then
-						dmg = dmg + 2
+						dmg = 5
+					end
+					if ml.touch_damage then
+						dmg = ml.touch_damage(player, 3, self.boss)
 					end
 					player:set_hp(player:get_hp() - dmg)
 				end

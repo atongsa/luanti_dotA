@@ -1,9 +1,8 @@
 CHANGES.log
 repo: atongsa/luanti_dotA
 
-This file is the record of what changed.
-Agents: read GAME_MODE.md first. If the owner agrees an idea, write it there.
-If you change the repo, append an entry here in the same commit. Do not delete older entries.
+Repo changes only. Not an idea diary. Ideas live in GAME_MODE.md and are rewritten in place.
+Read GAME_MODE.md before coding. Append here when the repo changes. Do not delete older entries.
 Commit messages start with: code from man_grok — <what> [<when>]
 
 --------------------------------------------------------------------------------
@@ -71,3 +70,7 @@ what: GAME_MODE.md now says the owner's ideas change, and the latest text of tha
 why: The owner said always write the new idea into GAME_MODE.md, then code from that file, not from an older chat.
 rule: if a new idea replaces an old one, rewrite the old section. Do not keep both. The change itself is logged here.
 no Lua changed.
+--------------------------------------------------------------------------------
+2026-10-02 14:44 BST
+what: GAME_MODE.md rewritten as a direction file. Chat-style rules removed from it.
+why: The owner said modify the ideas in that file, and do not record every idea as a chat.

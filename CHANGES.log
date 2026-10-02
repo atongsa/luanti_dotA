@@ -1,7 +1,7 @@
 CHANGES.log
 repo: atongsa/luanti_dotA
 
-Repo changes only. Not an idea diary. Ideas live in GAME_MODE.md and are rewritten in place.
+Repo changes only. Not an idea diary. Ideas live in GAME_MODE.md: keep them, and update an old idea only when a new one overlaps it.
 Read GAME_MODE.md before coding. Append here when the repo changes. Do not delete older entries.
 Commit messages start with: code from man_grok — <what> [<when>]
 
@@ -74,3 +74,7 @@ no Lua changed.
 2026-10-02 14:44 BST
 what: GAME_MODE.md rewritten as a direction file. Chat-style rules removed from it.
 why: The owner said modify the ideas in that file, and do not record every idea as a chat.
+--------------------------------------------------------------------------------
+2026-10-02 14:45 BST
+commit: d510abf9a49ded4b17f131d86905732036c59fcd
+what: GAME_MODE.md rule is now: keep every idea; update an old idea only when a new one overlaps it.

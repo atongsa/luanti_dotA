@@ -20,7 +20,7 @@ How to run or zip the game is `PACKAGING.log`.
 
 ## What this project is
 
-`luanti_dotA` is a new game mode on the [Luanti](https://www.luanti.org/) voxel engine.
+`luanti_dotA` is a game you play inside [Luanti](https://www.luanti.org/). Install it on a laptop or a desktop. The world is Luanti's 3D voxel sandbox. The match on top of that world is the game.
 
 The shape is a 2002-style real-time strategy, not a lane-only match and not a copy of any commercial RTS:
 
@@ -29,11 +29,14 @@ The shape is a 2002-style real-time strategy, not a lane-only match and not a co
 - a hall you defend
 - tasks you complete on the map
 
+The look is Greek: stone, bronze, sea, the poem. Do not copy a film's costumes or a commercial game's units.
+
 Factions, buildings, and ability names are original. The story follows Homer's *Odyssey*.
 
 Not this:
 
-- not a mining sandbox
+- not a separate engine or a flat 2D game
+- not "win by digging the world away"
 - not a pure lane MOBA, even though the repo name says dotA
 - not World of Warcraft
 - not a port of Warcraft III names, races, heroes, maps, UI, or campaign
@@ -68,28 +71,26 @@ Tasks, in poem order:
 
 RTS verbs sit under that plot: gather, build, defend the hall, clear a stop. The voyage is a chain of tasks. Ithaca is where the hall matters. Later stops must follow this list. The first playable slice does not need all 13.
 
-## Journal, items, and skills
+## Hero skills
 
-During the journal the player picks items and gains skills, then levels and picks again. After a good pick the hero can kill a normal enemy or a boss more easily. Do not copy skill names or kits from DotA or from any other commercial game.
+Odysseus has four skills. No fifth. A skill point learns one or raises it. Highest rank is 3. This is the 2002 hero pattern: one point per level, spent on a skill. It replaces the older rule that each level only handed you a new item.
 
-Picks happen when the match starts, and again each time the hero levels. A level costs 10 experience. Kills and finished tasks give experience. An item can be taken once. More than one item can be owned.
+You start with one point. Each level (10 experience) gives another point. Kills and finished tasks give experience.
 
-| Kind | Item | Skill | Effect |
-| --- | --- | --- | --- |
-| armor | Banded hide | Bronze voice | The suitor you look at stops for 3 seconds. Their hits on you are weaker. |
-| weapon | Ash brand | Brand | For 8 seconds punches hit much harder. This is how the lead suitor dies quickly. |
-| fruit | Lotus fruit | Bitter fruit | Heal to full and take a little gold. |
-| blood | Dark blood | Cut the vein | A wounded suitor nearby dies. A healthy one only takes a deep cut. |
+| Slot | Skill | Ranks |
+| --- | --- | --- |
+| armor | Bronze voice | Stun lasts longer. Hits you take get smaller. |
+| weapon | Brand | Punches hit harder, and the buff lasts longer. |
+| fruit | Bitter fruit | Heals more, and pays a little more gold. |
+| blood | Cut the vein | The cut is deeper, so a hurt enemy dies more easily. |
 
-Open the journal by punching it or with `/journal`. Cast with the journal buttons or `/skill armor`, `/skill weapon`, `/skill fruit`, `/skill blood`.
-
-More items of these kinds are allowed. When one is added, put it in this table. Names stay original.
+Open the journal and press Learn or Upgrade. Cast with Cast, or `/skill armor`, `/skill weapon`, `/skill fruit`, `/skill blood`. Names stay original.
 
 ## What a full match is
 
-A match is a small battlefield of voxels.
+A match is a small battlefield of voxels inside the Luanti sandbox.
 
-- You control one hero, Odysseus. He gains experience, levels, items, and skills. He is the only unit that takes hard fights alone.
+- You control one hero, Odysseus. He gains experience, levels, and spends points on the four skills. He is the only unit that takes hard fights alone.
 - You also run a hall: workers gather, buildings unlock units and upgrades, and the hall is what you must not lose. Workers and the build menu are not built yet.
 - Waves and camps pressure the hall. Defending is part of the match.
 - Tasks follow the story list. They pay gold, experience, or a building unlock, or they open the next stop.
@@ -109,16 +110,17 @@ A rough single-player slice is the plan. A real Warcraft III is not.
 ## Built now
 
 - singlenode pad, the hall, two gold stones, a lotus stand
-- the player is Odysseus, with a sword, gold, experience, a text HUD, and the voyage journal in slot 2
+- the player is Odysseus, with a sword, gold, experience, a text HUD, and the journal in slot 2
+- four skills, each rank 0 to 3, one point to learn or upgrade
 - one wave: three suitors plus one lead suitor
 - suitors hurt the player if they stand on him
 - win if the lotus is refused, all four are dead, and the hall is above 0
 - lose if the hall reaches 0
-- `/ml` prints status. `/ml_reset` (server privilege) resets the slice and opens the journal again
+- `/ml` prints status. `/ml_reset` (server privilege) resets the slice and gives one skill point
 
 Gold stones stand in for workers. Only the lotus stop exists. The cyclops is next in the story and is not built.
 
-Not built: workers, build menu, towers, stops after the lotus, a second player, a real isometric camera.
+Not built: workers, build menu, towers, stops after the lotus, a second player, a real isometric camera, Greek models (the pad is still flat colors).
 
 ## Repository map
 
@@ -126,24 +128,25 @@ Not built: workers, build menu, towers, stops after the lotus, a second player, 
 | --- | --- |
 | `GAME_MODE.md` | All current ideas. Add new ones. Update an old one only when a new idea overlaps it. Not a chat log. |
 | `CHANGES.log` | Repo changes only. Append. Not an idea diary. |
-| `PACKAGING.log` | Local test, zip layout, why ContentDB will reject this repo. |
-| `ml_core` | Hall life, gold, experience, levels, lotus flag, win and loss |
-| `ml_journal` | Item picks and the four skills |
+| `PACKAGING.log` | Local test and zip layout. |
+| `LICENSE` | MIT. This game is open source. |
+| `ml_core` | Hall life, gold, experience, levels, skill points, win and loss |
+| `ml_journal` | The four skills and their ranks |
 | `ml_camera` | Look tilt at spawn. Not a real isometric camera |
 | `ml_map` | Pad, hall, gold stones, lotus stand |
 | `ml_creeps` | Three suitors and one lead suitor |
 | `ml_heroes` | The player as Odysseus, plus a sword. `heroes/hero_example.lua` is not loaded |
 | `ml_items` | One voyage token when the lotus is refused |
-| `ml_ui` | Text HUD: gold, level, hall, task, skills |
+| `ml_ui` | Text HUD: gold, level, hall, task, skill ranks |
 
 ## One match
 
 1. The hero starts on the shore after the war. The hall on Ithaca already exists and is already under pressure.
-2. The journal offers an item before the fight.
+2. One skill point is waiting. Spend it on one of the four skills.
 3. Workers at the hall gather one resource. Buildings spend it. Not in the slice. Gold stones stand in.
 4. The hero clears voyage stops in the story order. Only the lotus exists.
 5. Waves walk an authored path toward the hall. One wave exists. No towers.
-6. Level-ups open the journal again.
+6. Each level gives one more skill point.
 7. The match ends in the hall, or earlier if the hall falls.
 
 Numbers that are not written here get decided when that system is built, then written into this file in place of this sentence.
@@ -153,11 +156,14 @@ Numbers that are not written here get decided when that system is built, then wr
 - Invent building names and ability names. Do not reuse names from commercial games.
 - Poem names stay poem names: Odysseus, Ithaca, Penelope, Telemachus, and the stops listed above.
 - Each new task is data on the map: where, which poem beat, reward, next stop.
+- The game is MIT so it can be published where Luanti requires a free license, and so it can be installed from a copy on a laptop or a desktop.
 
 ## Copyright and publishing
 
-Copyright (C) 2026 atongsa. All rights reserved.
+Code copyright (C) 2026 atongsa, under the MIT license. See `LICENSE` and `README.md`.
 
-The game mode and its code are proprietary. See `README.md`. The story outline follows Homer's *Odyssey*, which is in the public domain. Do not copy a modern translation into this repository.
+The story outline follows Homer's *Odyssey*, which is in the public domain. Do not copy a modern translation into this repository.
 
-ContentDB only accepts free licenses. This repo is all rights reserved, so it is not for ContentDB unless a free license is chosen on purpose. Local test and a zip are how it is shared. Details are in `PACKAGING.log`.
+Luanti's own program is GNU LGPL v2.1. That is the engine, not this game.
+
+Publishing on ContentDB is allowed only while this MIT grant stays in place. Local install is in `PACKAGING.log`: copy the folder into Luanti's `games` directory and make a new world.

@@ -6,7 +6,7 @@ Keep every idea. Add a new idea as its own line or section when it does not over
 
 ## Agents
 
-Read this file before you code. Code follows this file, not an older chat.
+Read this file before you code. Then read `BUILD.md` for where the code stopped. Code follows this file, not an older chat.
 
 - Keep ideas that still stand.
 - Overlap: rewrite the old idea. The new wording is the one to code.
@@ -18,28 +18,24 @@ Read this file before you code. Code follows this file, not an older chat.
 
 How to run or zip the game is `PACKAGING.log`.
 
-## What this project is
+## What this game is
 
-`luanti_dotA` is a game you play inside [Luanti](https://www.luanti.org/). Install it on a laptop or a desktop. The world is Luanti's 3D voxel sandbox. The match on top of that world is the game.
+A free 3D sandbox RPG that runs as a game inside [Luanti](https://www.luanti.org/). Install it on a laptop or a desktop and play it in Luanti's own 3D world. License is MIT.
 
-The shape is a 2002-style real-time strategy, not a lane-only match and not a copy of any commercial RTS:
+The story is Homer's *Odyssey*. Odysseus is the hero. The look is Greek: stone, bronze, sea. Do not copy a film's costumes or another game's units.
 
-- one hero you level
-- a base you build
-- a hall you defend
-- tasks you complete on the map
+The only borrow from Warcraft III is the hero: he levels, and he has four skills he spends points to learn and upgrade. Nothing else is taken from that game. No locked isometric camera. No real-time strategy port. No races, maps, UI, or unit names from it.
 
-The look is Greek: stone, bronze, sea, the poem. Do not copy a film's costumes or a commercial game's units.
-
-Factions, buildings, and ability names are original. The story follows Homer's *Odyssey*.
+You walk the voyage in the 3D world, fight, finish the poem's tasks, and keep the hall at Ithaca standing. That is the RPG. Digging the ground is not how you win.
 
 Not this:
 
 - not a separate engine or a flat 2D game
-- not "win by digging the world away"
+- not a locked isometric camera, and not a project that tries to build one
+- not a Warcraft III clone, and not a base-building strategy game
 - not a pure lane MOBA, even though the repo name says dotA
 - not World of Warcraft
-- not a port of Warcraft III names, races, heroes, maps, UI, or campaign
+- not "win by digging the world away"
 - not a new plot in place of the poem
 
 ## Story
@@ -49,7 +45,7 @@ Odysseus is trying to get home to Ithaca after the war. The hall must still be s
 Use the poem's order. Do not paste a copyrighted translation into the repo. The poem is ancient and public domain. A modern printed translation is not. Write our own short task text.
 
 - The hero is Odysseus.
-- The keep is his hall on Ithaca.
+- Home is his hall on Ithaca.
 - The opposing force is the suitors wearing the house down.
 - Telemachus can exist as an ally already at the hall. Penelope is why the hall must not fall. Neither is a second player-hero in the first slice.
 
@@ -67,13 +63,13 @@ Tasks, in poem order:
 10. The cattle of the sun. Do not touch them. Breaking the rule is a loss.
 11. Calypso's island. A long hold. The task is to leave.
 12. The Phaeacians. They carry him home. This unlocks Ithaca.
-13. Ithaca. The hall is under siege by the suitors. Defend it, then end the match in the hall.
+13. Ithaca. The hall is under siege by the suitors. Defend it, then end the journey in the hall.
 
-RTS verbs sit under that plot: gather, build, defend the hall, clear a stop. The voyage is a chain of tasks. Ithaca is where the hall matters. Later stops must follow this list. The first playable slice does not need all 13.
+The voyage is a chain of tasks in the 3D world. Later stops must follow this list. The first playable slice does not need all 13.
 
 ## Hero skills
 
-Odysseus has four skills. No fifth. A skill point learns one or raises it. Highest rank is 3. This is the 2002 hero pattern: one point per level, spent on a skill. It replaces the older rule that each level only handed you a new item.
+Odysseus has four skills. No fifth. A skill point learns one or raises it. Highest rank is 3. One point per level, spent on a skill. This is the only Warcraft III pattern in the game.
 
 You start with one point. Each level (10 experience) gives another point. Kills and finished tasks give experience.
 
@@ -86,26 +82,15 @@ You start with one point. Each level (10 experience) gives another point. Kills 
 
 Open the journal and press Learn or Upgrade. Cast with Cast, or `/skill armor`, `/skill weapon`, `/skill fruit`, `/skill blood`. Names stay original.
 
-## What a full match is
+## How a playthrough goes
 
-A match is a small battlefield of voxels inside the Luanti sandbox.
+- You are Odysseus in the Luanti world. Normal 3D movement. Third person is the player's own key (F7). Do not build a special camera.
+- You gain experience, levels, and spend points on the four skills.
+- The hall at Ithaca is home. Suitors pressure it. If it falls, the journey is lost.
+- Tasks follow the story list. They pay gold or experience, or they open the next stop.
+- The journey ends when the last task in the hall is done, or earlier if the hall falls.
 
-- You control one hero, Odysseus. He gains experience, levels, and spends points on the four skills. He is the only unit that takes hard fights alone.
-- You also run a hall: workers gather, buildings unlock units and upgrades, and the hall is what you must not lose. Workers and the build menu are not built yet.
-- Waves and camps pressure the hall. Defending is part of the match.
-- Tasks follow the story list. They pay gold, experience, or a building unlock, or they open the next stop.
-- The match ends when the hall falls, or when the last task in the hall is done.
-
-Camera, movement, and the world stay Luanti: a real 3D voxel map, not a flat sprite field. The view should show the hall, the approach, and the hero together. The engine will not give a locked 2002 isometric camera. The slice only tilts the look and tells the player to press F7 twice. Do not claim a locked camera exists.
-
-Do not pretend Luanti can do these:
-
-- box-select of many units, formations, and strong pathfinding
-- dozens of units fighting at once
-- lockstep multiplayer
-- Blizzard art or names
-
-A rough single-player slice is the plan. A real Warcraft III is not.
+Workers, a build menu, and towers are not the game. They are not scheduled. Gold stones stand in for gathering until something simpler is needed.
 
 ## Built now
 
@@ -118,36 +103,36 @@ A rough single-player slice is the plan. A real Warcraft III is not.
 - lose if the hall reaches 0
 - `/ml` prints status. `/ml_reset` (server privilege) resets the slice and gives one skill point
 
-Gold stones stand in for workers. Only the lotus stop exists. The cyclops is next in the story and is not built.
+Only the lotus stop exists. The cyclops is next in the story and is not built.
 
-Not built: workers, build menu, towers, stops after the lotus, a second player, a real isometric camera, Greek models (the pad is still flat colors).
+Not built: Greek models (the pad is still flat colors), stops after the lotus. Not wanted: a locked camera, a strategy base, a second player.
 
 ## Repository map
 
 | Path | Role |
 | --- | --- |
 | `GAME_MODE.md` | All current ideas. Add new ones. Update an old one only when a new idea overlaps it. Not a chat log. |
+| `BUILD.md` | Where the code stopped, and what to do next. |
 | `CHANGES.log` | Repo changes only. Append. Not an idea diary. |
 | `PACKAGING.log` | Local test and zip layout. |
 | `LICENSE` | MIT. This game is open source. |
 | `ml_core` | Hall life, gold, experience, levels, skill points, win and loss |
 | `ml_journal` | The four skills and their ranks |
-| `ml_camera` | Look tilt at spawn. Not a real isometric camera |
+| `ml_camera` | A one-time look tilt. Not a special camera. Leave it. |
 | `ml_map` | Pad, hall, gold stones, lotus stand |
 | `ml_creeps` | Three suitors and one lead suitor |
 | `ml_heroes` | The player as Odysseus, plus a sword. `heroes/hero_example.lua` is not loaded |
 | `ml_items` | One voyage token when the lotus is refused |
 | `ml_ui` | Text HUD: gold, level, hall, task, skill ranks |
 
-## One match
+## One journey
 
 1. The hero starts on the shore after the war. The hall on Ithaca already exists and is already under pressure.
 2. One skill point is waiting. Spend it on one of the four skills.
-3. Workers at the hall gather one resource. Buildings spend it. Not in the slice. Gold stones stand in.
-4. The hero clears voyage stops in the story order. Only the lotus exists.
-5. Waves walk an authored path toward the hall. One wave exists. No towers.
-6. Each level gives one more skill point.
-7. The match ends in the hall, or earlier if the hall falls.
+3. The hero clears voyage stops in the story order. Only the lotus exists.
+4. Suitors walk an authored path toward the hall.
+5. Each level gives one more skill point.
+6. The journey ends in the hall, or earlier if the hall falls.
 
 Numbers that are not written here get decided when that system is built, then written into this file in place of this sentence.
 

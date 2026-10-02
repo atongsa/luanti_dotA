@@ -4,17 +4,18 @@ Read GAME_MODE.md first. This file is only how to continue the build. It is not 
 Last session: 2026-10-02. Repo atongsa/luanti_dotA, branch main.
 Not run inside Luanti from the agent side. The owner tests on a laptop or desktop.
 
+The game is a free MIT 3D sandbox RPG on Luanti. Story: Odyssey. The only Warcraft III borrow is the hero's levels and four upgradable skills. Do not build a locked camera. Do not build a strategy game.
+
 --------------------------------------------------------------------------------
-START HERE TOMORROW
+START HERE NEXT SESSION
 --------------------------------------------------------------------------------
 
 1. Read GAME_MODE.md. If the owner changed an idea, that file wins.
 2. Read this file.
 3. Do not rebuild the slice. It already runs.
-4. Next unfinished work, in this order, unless GAME_MODE.md now says otherwise:
+4. Next unfinished work, unless GAME_MODE.md now says otherwise:
    a. Greek look. The pad is still flat color squares, not Greek models.
-   b. Workers and a build menu. Agreed. Not built. Gold stones stand in for workers.
-   c. The next story stop only: the cyclops. Do not jump ahead in the poem list.
+   b. The next story stop only: the cyclops. Do not jump ahead in the poem list.
 5. Same commit rules: message starts with "code from man_grok", then what, then the time.
 6. New idea with no overlap: add it to GAME_MODE.md. Overlap: rewrite that old idea only.
 7. Append CHANGES.log when the repo changes. Do not paste the chat into GAME_MODE.md.
@@ -59,7 +60,7 @@ mods/ml_creeps/init.lua   suitors, lead, stun, wave. entity ml_creeps:suitor
 mods/ml_heroes/init.lua   sword, nametag, respawn
 mods/ml_ui/init.lua       one HUD text line
 mods/ml_items/init.lua    voyage token on the lotus
-mods/ml_camera/init.lua   look tilt, tells the player to press F7 twice
+mods/ml_camera/init.lua   one look tilt. Do not extend this into a camera system.
 mods/ml_heroes/heroes/hero_example.lua   not loaded
 
 Mod storage (world): hall, wave (0 none, 1 running, 2 cleared), creeps_alive, lotus, outcome, map_built, ready.
@@ -68,18 +69,16 @@ Mod storage (world): hall, wave (0 none, 1 running, 2 cleared), creeps_alive, lo
 DO NOT REDO
 --------------------------------------------------------------------------------
 
-Do not turn this back into a lane MOBA.
+Do not turn this back into a lane MOBA or a strategy game.
+Do not build a locked isometric camera.
 Do not paste a modern translation of the Odyssey.
-Do not copy Warcraft or DotA names.
-Do not claim a locked isometric camera. F7 is the pulled-back view.
-Do not switch the license off MIT unless the owner says so. ContentDB needs a free license.
+Do not copy Warcraft or DotA names. The skill-point pattern is the only borrow.
+Do not switch the license off MIT unless the owner says so.
 
 --------------------------------------------------------------------------------
-LEFT UNFINISHED ON PURPOSE
+LEFT UNFINISHED
 --------------------------------------------------------------------------------
 
 Greek meshes and textures.
-Workers, buildings, towers.
 Poem stops after the lotus. Next one is the cyclops.
-Second player.
 A real ContentDB upload. The MIT grant is in the repo. The package was not submitted.

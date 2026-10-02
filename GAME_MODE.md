@@ -4,6 +4,13 @@
 
 If you are an agent (or any tool) reading this repository, **read this file first** before you read code, edit files, or propose a design. This file is the source of what the owner wants. Do not infer the game from the repo name, from DotA, or from empty mod folders. If this file and another file disagree, stop and ask the owner.
 
+The owner's ideas change. This file is the **current** direction, not a history of every old idea.
+
+- When the owner states a new idea, update this file in the same turn, before you code.
+- When you code, follow the latest text in this file. Do not follow an older chat message, an older commit, or a section you remember if this file now says something else.
+- If a new idea replaces an old one, rewrite the old section. Do not leave both as if both are still true. Put the fact that it changed into `CHANGES.log`, not as a second design.
+- Code that contradicts this file is wrong, even if that code was agreed yesterday.
+
 Two duties on every change you make:
 
 1. If the owner agrees an idea, write that idea in this file before or in the same commit as the work. A new agent must be able to learn the game from this file alone.
@@ -14,7 +21,7 @@ How to run or zip the game is `PACKAGING.log`, not this file.
 Working rules the owner set:
 
 - Do not write or commit code until the owner says **grok code it**, unless the owner clearly tells you to create or change the game in that message.
-- Every commit message starts with `code from man_grok`, then what changed, then the date and time. Example: `code from man_grok — short what [2026-09-30 23:07 BST]`.
+- Every commit message starts with `code from man_grok`, then what changed, then the date and time. Example: `code from man_grok — short what [2026-10-02 14:42 BST]`.
 
 ## What this project is
 
@@ -126,7 +133,7 @@ Not built, and do not describe them as done: workers, build menu, towers, stops 
 
 | Path | Role |
 | --- | --- |
-| `GAME_MODE.md` | What the owner wants. Read first. Update when an idea is agreed. |
+| `GAME_MODE.md` | What the owner wants **now**. Read first. Replace a section when the idea changes. |
 | `CHANGES.log` | What agents changed. Append only. |
 | `PACKAGING.log` | Local test, zip layout, why ContentDB will reject this repo. |
 | `ml_core` | Hall life, gold, experience, levels, lotus flag, win and loss |
@@ -156,6 +163,7 @@ Numbers that are not written here (exact costs of future buildings, map size of 
 - Poem names stay poem names: Odysseus, Ithaca, Penelope, Telemachus, and the stops listed above.
 - Each new task is data on the map: where, which poem beat, reward, next stop.
 - Agreed ideas go in this file. Done work goes in `CHANGES.log`.
+- If the owner changes an idea, this file changes with it. The next coding step reads this file again.
 
 ## Copyright and publishing
 

@@ -1,13 +1,17 @@
 # Game mode
 
-This file is the current idea and the coding direction. It is not a chat log. Do not paste conversations into it. When an idea changes, rewrite the section in place. Old wording does not stay.
+This file is the idea and the coding direction. It is not a chat log. Do not paste conversations into it.
+
+Keep every idea. Add a new idea as its own line or section when it does not overlap an old one. If a new idea overlaps an old one (same topic, a change, or a contradiction), update that old idea in place. Do not keep two versions of the same idea.
 
 ## Agents
 
-Read this file before you code. Code follows this file, not an older chat and not yesterday's code if this file now says otherwise.
+Read this file before you code. Code follows this file, not an older chat.
 
-- A new idea replaces the old sentence here. It is not added as a second note, a quote, or a diary entry.
-- Do not record ideas in this file as chat. `CHANGES.log` is only for what was changed in the repo, not for every thought.
+- Keep ideas that still stand.
+- Overlap: rewrite the old idea. The new wording is the one to code.
+- No overlap: add the idea. Do not delete unrelated ideas to "clean up."
+- Do not record ideas here as chat. `CHANGES.log` is only for repo changes.
 - If this file and another file disagree about the game, this file wins. If you are unsure what the current idea is, ask. Do not invent a direction.
 - Do not write code until the owner says **grok code it**, unless that message already tells you to build.
 - Commit messages start with `code from man_grok`, then what changed, then the date and time.
@@ -120,7 +124,7 @@ Not built: workers, build menu, towers, stops after the lotus, a second player, 
 
 | Path | Role |
 | --- | --- |
-| `GAME_MODE.md` | Current idea and direction. Rewrite in place. Not a chat log. |
+| `GAME_MODE.md` | All current ideas. Add new ones. Update an old one only when a new idea overlaps it. Not a chat log. |
 | `CHANGES.log` | Repo changes only. Append. Not an idea diary. |
 | `PACKAGING.log` | Local test, zip layout, why ContentDB will reject this repo. |
 | `ml_core` | Hall life, gold, experience, levels, lotus flag, win and loss |

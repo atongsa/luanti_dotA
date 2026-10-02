@@ -1,60 +1,53 @@
--- Items picked from the journal. Each one is a skill, not a stat stick only.
--- Names are original. They are not taken from another game.
+-- Odysseus has four skills. A point learns one or raises it, up to rank 3.
+-- Names are original. The shape is a 2002 RTS hero, not a copied kit.
 
 ml.offerings = {
-	{
-		id = "armor",
-		name = "Banded hide",
-		kind = "armor",
-		skill = "Bronze voice",
-		body = "The suitor you look at stops for 3 seconds. Suitors that touch you hit for 1, not 3.",
-	},
-	{
-		id = "weapon",
-		name = "Ash brand",
-		kind = "weapon",
-		skill = "Brand",
-		body = "For 8 seconds your punches hit much harder. Use it on the lead suitor.",
-	},
-	{
-		id = "fruit",
-		name = "Lotus fruit",
-		kind = "fruit",
-		skill = "Bitter fruit",
-		body = "Heal to full and take 5 gold. Short wait before it works again.",
-	},
-	{
-		id = "blood",
-		name = "Dark blood",
-		kind = "blood",
-		skill = "Cut the vein",
-		body = "The nearest wounded suitor dies. A healthy one only loses a large cut of life.",
-	},
+	{id = "armor", name = "Banded hide", skill = "Bronze voice"},
+	{id = "weapon", name = "Ash brand", skill = "Brand"},
+	{id = "fruit", name = "Lotus fruit", skill = "Bitter fruit"},
+	{id = "blood", name = "Dark blood", skill = "Cut the vein"},
 }
 
-local function wrap_owned(player)
-	local s = player:get_meta():get_string("ml_owned")
-	if s == "" then
-		return ","
+local RANKS = {"armor", "weapon", "fruit", "blood"}
+
+function ml.skill_rank(player, id)
+	if not player then
+		return 0
 	end
-	return s
+	local n = player:get_meta():get_int("ml_rank_" .. id)
+	if n < 0 then
+		return 0
+	end
+	if n > 3 then
+		return 3
+	end
+	return n
 end
 
 function ml.has_item(player, id)
-	if not player then
-		return false
-	end
-	return wrap_owned(player):find("," .. id .. ",", 1, true) ~= nil
+	return ml.skill_rank(player, id) > 0
 end
 
-function ml.owned_ids(player)
-	local list = {}
-	for _, off in ipairs(ml.offerings) do
-		if ml.has_item(player, off.id) then
-			list[#list + 1] = off
-		end
+function ml.touch_damage(player, base, boss)
+	local rank = ml.skill_rank(player, "armor")
+	local dmg = base
+	if rank == 1 then
+		dmg = 2
+	elseif rank == 2 then
+		dmg = 1
+	elseif rank >= 3 then
+		dmg = 1
 	end
-	return list
+	if boss and rank < 3 then
+		dmg = dmg + 2
+	elseif boss then
+		dmg = dmg + 1
+	end
+	return dmg
+end
+
+local function points(player)
+	return player:get_meta():get_int("ml_points")
 end
 
 local function offering(id)
@@ -70,8 +63,7 @@ local function cd_ready(player, id, wait)
 	local until_us = tonumber(meta:get_string("ml_cd_" .. id)) or 0
 	local now = minetest.get_us_time()
 	if now < until_us then
-		local left = math.ceil((until_us - now) / 1000000)
-		return false, left
+		return false, math.ceil((until_us - now) / 1000000)
 	end
 	meta:set_string("ml_cd_" .. id, tostring(now + wait * 1000000))
 	return true
@@ -85,22 +77,26 @@ function ml.punch_bonus(player)
 	if minetest.get_us_time() > until_us then
 		return 0
 	end
-	return 10
+	local rank = ml.skill_rank(player, "weapon")
+	if rank <= 1 then
+		return 6
+	end
+	if rank == 2 then
+		return 10
+	end
+	return 16
 end
 
 function ml.skill_line(player)
-	local names = {}
-	for _, off in ipairs(ml.owned_ids(player)) do
-		names[#names + 1] = off.skill
-	end
-	if #names == 0 then
-		return "journal: no skill yet"
+	local bits = {}
+	for _, off in ipairs(ml.offerings) do
+		bits[#bits + 1] = off.skill .. " " .. ml.skill_rank(player, off.id) .. "/3"
 	end
 	local extra = ""
 	if ml.punch_bonus(player) > 0 then
-		extra = "   BRAND"
+		extra = "  BRAND"
 	end
-	return "skills: " .. table.concat(names, ", ") .. extra
+	return table.concat(bits, "  ") .. "   points " .. points(player) .. extra
 end
 
 local function nearest_suitor(player, radius)
@@ -119,40 +115,43 @@ local function nearest_suitor(player, radius)
 end
 
 function ml.cast(player, id)
-	if not ml.has_item(player, id) then
-		return false, "You have not taken that item."
+	local rank = ml.skill_rank(player, id)
+	if rank < 1 then
+		return false, "That skill is still rank 0. Spend a point."
 	end
 	if ml.outcome() ~= "" then
 		return false, "The match is over."
 	end
-	local off = offering(id)
 	if id == "armor" then
 		local ok, left = cd_ready(player, id, 8)
 		if not ok then
 			return false, "Bronze voice waits " .. left .. "s."
 		end
-		if not ml.stun_looked or not ml.stun_looked(player, 3) then
+		local secs = rank + 1
+		if not ml.stun_looked or not ml.stun_looked(player, secs) then
 			player:get_meta():set_string("ml_cd_" .. id, "0")
 			return false, "No suitor in front of you."
 		end
-		return true, "Bronze voice. He stops."
+		return true, "Bronze voice, rank " .. rank .. "."
 	end
 	if id == "weapon" then
 		local ok, left = cd_ready(player, id, 14)
 		if not ok then
 			return false, "Brand waits " .. left .. "s."
 		end
-		player:get_meta():set_string("ml_brand_until", tostring(minetest.get_us_time() + 8 * 1000000))
-		return true, "Brand. Hit them now."
+		local secs = 4 + rank * 2
+		player:get_meta():set_string("ml_brand_until", tostring(minetest.get_us_time() + secs * 1000000))
+		return true, "Brand, rank " .. rank .. "."
 	end
 	if id == "fruit" then
 		local ok, left = cd_ready(player, id, 16)
 		if not ok then
 			return false, "Fruit waits " .. left .. "s."
 		end
-		player:set_hp(20)
-		ml.add_gold(player, 5)
-		return true, "You eat the bitter fruit and stand up."
+		local heal = 8 + rank * 4
+		player:set_hp(math.min(20, player:get_hp() + heal))
+		ml.add_gold(player, rank * 2 + 1)
+		return true, "Bitter fruit, rank " .. rank .. "."
 	end
 	if id == "blood" then
 		local ok, left = cd_ready(player, id, 10)
@@ -164,8 +163,9 @@ function ml.cast(player, id)
 			player:get_meta():set_string("ml_cd_" .. id, "0")
 			return false, "No suitor close enough."
 		end
+		local cut = 6 + rank * 6
 		local hp = obj:get_hp()
-		if hp <= 14 then
+		if hp <= cut then
 			ent.dead = true
 			ml.add_xp(player, ent.boss and 15 or 8)
 			ml.add_gold(player, ent.boss and 8 or 3)
@@ -173,79 +173,62 @@ function ml.cast(player, id)
 			obj:remove()
 			return true, "Cut the vein. He drops."
 		end
-		obj:set_hp(hp - 14)
-		return true, "Cut the vein. He is still up."
+		obj:set_hp(hp - cut)
+		return true, "Cut the vein, rank " .. rank .. "."
 	end
-	return false, off and off.name or "No such item."
+	return false, "No such skill."
 end
 
 local function show_journal(player)
-	local y = 1.2
 	local fs = {
 		"formspec_version[4]",
-		"size[13,10]",
-		"label[0.4,0.4;Voyage journal]",
+		"size[12,8]",
+		"label[0.4,0.4;Four skills. Points left: " .. points(player) .. "]",
+		"label[0.4,0.9;A point learns a skill or raises it. Highest rank is 3.]",
 	}
-	if player:get_meta():get_int("ml_pending") == 1 then
-		fs[#fs + 1] = "label[0.4,0.9;Level changed. Take one item you do not already have.]"
-		for _, off in ipairs(ml.offerings) do
-			if not ml.has_item(player, off.id) then
-				fs[#fs + 1] = "button[0.4," .. y .. ";3.2,0.7;pick_" .. off.id .. ";" .. off.name .. "]"
-				fs[#fs + 1] = "textarea[3.8," .. y .. ";8.6,0.9;;;" .. off.kind .. "  /  " .. off.skill .. ": " .. off.body .. "]"
-				y = y + 1.15
-			end
+	local y = 1.5
+	for _, off in ipairs(ml.offerings) do
+		local rank = ml.skill_rank(player, off.id)
+		local verb = rank < 1 and "Learn" or (rank < 3 and "Upgrade" or "Max")
+		fs[#fs + 1] = "label[0.4," .. y .. ";" .. off.skill .. "  " .. rank .. "/3]"
+		if rank < 3 and points(player) > 0 then
+			fs[#fs + 1] = "button[6.2," .. (y - 0.15) .. ";2.4,0.55;up_" .. off.id .. ";" .. verb .. "]"
 		end
-	else
-		fs[#fs + 1] = "label[0.4,0.9;Use a skill. Wield nothing special: the button casts it.]"
-		local any = false
-		for _, off in ipairs(ml.owned_ids(player)) do
-			any = true
-			fs[#fs + 1] = "button[0.4," .. y .. ";3.2,0.7;use_" .. off.id .. ";" .. off.skill .. "]"
-			fs[#fs + 1] = "textarea[3.8," .. y .. ";8.6,0.9;;;" .. off.name .. " (" .. off.kind .. "). " .. off.body .. "]"
-			y = y + 1.15
+		if rank > 0 then
+			fs[#fs + 1] = "button[8.8," .. (y - 0.15) .. ";2.6,0.55;use_" .. off.id .. ";Cast]"
 		end
-		if not any then
-			fs[#fs + 1] = "label[0.4,1.4;Nothing taken yet.]"
-		end
+		y = y + 1.15
 	end
-	fs[#fs + 1] = "button_exit[0.4,9.1;2.4,0.6;close;Close]"
+	fs[#fs + 1] = "button_exit[0.4,7.2;2.2,0.55;close;Close]"
 	minetest.show_formspec(player:get_player_name(), "ml_journal:book", table.concat(fs))
 end
 
 function ml.offer_pick(player)
-	local meta = player:get_meta()
-	local left = false
-	for _, off in ipairs(ml.offerings) do
-		if not ml.has_item(player, off.id) then
-			left = true
-			break
-		end
-	end
-	if not left then
-		meta:set_int("ml_pending", 0)
+	if points(player) < 1 then
 		return
 	end
-	meta:set_int("ml_pending", 1)
-	minetest.chat_send_player(player:get_player_name(), "Journal: take an item. Punch with the journal, or type /journal")
+	minetest.chat_send_player(player:get_player_name(), "Skill point. Open the journal and spend it.")
 	show_journal(player)
 end
 
-local function take(player, id)
+local function spend(player, id)
+	if points(player) < 1 then
+		return
+	end
+	if ml.skill_rank(player, id) >= 3 then
+		return
+	end
 	local meta = player:get_meta()
-	if meta:get_int("ml_pending") ~= 1 then
-		return
-	end
-	if ml.has_item(player, id) then
-		return
-	end
+	local rank = ml.skill_rank(player, id) + 1
+	meta:set_int("ml_rank_" .. id, rank)
+	meta:set_int("ml_points", points(player) - 1)
 	local off = offering(id)
-	if not off then
-		return
+	minetest.chat_send_player(player:get_player_name(), off.skill .. " is rank " .. rank .. ".")
+	if points(player) > 0 then
+		show_journal(player)
+	else
+		minetest.close_formspec(player:get_player_name(), "ml_journal:book")
 	end
-	meta:set_string("ml_owned", wrap_owned(player) .. id .. ",")
-	meta:set_int("ml_pending", 0)
-	minetest.chat_send_player(player:get_player_name(), "Taken: " .. off.name .. ". Skill: " .. off.skill .. ". Open the journal to use it.")
-	minetest.close_formspec(player:get_player_name(), "ml_journal:book")
 end
 
 minetest.register_craftitem("ml_journal:book", {
@@ -263,24 +246,21 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "ml_journal:book" then
 		return
 	end
-	for _, off in ipairs(ml.offerings) do
-		if fields["pick_" .. off.id] then
-			take(player, off.id)
+	for _, id in ipairs(RANKS) do
+		if fields["up_" .. id] then
+			spend(player, id)
 			return
 		end
-		if fields["use_" .. off.id] then
-			local ok, msg = ml.cast(player, off.id)
+		if fields["use_" .. id] then
+			local ok, msg = ml.cast(player, id)
 			minetest.chat_send_player(player:get_player_name(), msg)
-			if ok then
-				minetest.close_formspec(player:get_player_name(), "ml_journal:book")
-			end
 			return
 		end
 	end
 end)
 
 minetest.register_chatcommand("journal", {
-	description = "Open the voyage journal",
+	description = "Open the four skills",
 	func = function(name)
 		local player = minetest.get_player_by_name(name)
 		if not player then
@@ -292,7 +272,7 @@ minetest.register_chatcommand("journal", {
 })
 
 minetest.register_chatcommand("skill", {
-	description = "Cast a skill by kind: armor, weapon, fruit, or blood",
+	description = "Cast armor, weapon, fruit, or blood",
 	params = "<armor|weapon|fruit|blood>",
 	func = function(name, param)
 		local player = minetest.get_player_by_name(name)
@@ -315,6 +295,21 @@ minetest.register_on_joinplayer(function(player)
 		inv:set_stack("main", 2, "ml_journal:book")
 	end
 	local meta = player:get_meta()
+	local owned = meta:get_string("ml_owned")
+	for _, id in ipairs(RANKS) do
+		if owned:find("," .. id .. ",", 1, true) and ml.skill_rank(player, id) < 1 then
+			meta:set_int("ml_rank_" .. id, 1)
+		end
+	end
+	local any = false
+	for _, id in ipairs(RANKS) do
+		if ml.skill_rank(player, id) > 0 then
+			any = true
+		end
+	end
+	if not any and points(player) < 1 and meta:get_int("ml_did_intro") ~= 1 then
+		meta:set_int("ml_points", 1)
+	end
 	if meta:get_int("ml_did_intro") ~= 1 then
 		meta:set_int("ml_did_intro", 1)
 		minetest.after(1, function()

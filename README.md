@@ -1,32 +1,17 @@
-# MobaLike
+# luanti_dotA
 
-A DotA-style MOBA built on the [Luanti](https://www.luanti.org/) voxel engine — a fixed
-isometric camera, lane-based map, and hero/creep gameplay layered on top of a true 3D
-voxel world.
+A game for [Luanti](https://www.luanti.org/). You install it and play it on a laptop or a desktop, inside Luanti's 3D world.
 
-## Status
+The story is Homer's *Odyssey*. The hero is Odysseus. He has four skills. Each skill is learned and upgraded with a point, the way a hero in a 2002 real-time strategy spends a skill point.
 
-Early development — building the core game structures day by day.
+The look is Greek: stone, bronze, and the sea. Names of buildings and skills are original. The poem's names stay the poem's names.
 
-## About this repository
+## License
 
-This code is public for portfolio and development-transparency purposes, but it is
-**not open source**. See the notice below and feel free to look around, but please
-don't copy, redistribute, or reuse this code without permission.
+MIT. See [LICENSE](LICENSE). This game is open source so it can be shared and, when you choose, published where Luanti accepts free licenses.
 
-## Copyright
+The engine is separate and is under the GNU LGPL v2.1.
 
-Copyright (C) 2026 atongsa. All rights reserved.
+## Direction
 
-This software and its source code are proprietary. Viewing this repository does not
-grant any license to use, copy, modify, merge, publish, distribute, sublicense, or
-sell copies of this software, in whole or in part, without explicit written permission
-from the copyright holder.
-
-## Built with
-
-- [Luanti](https://www.luanti.org/) (LGPL-licensed voxel game engine)
-
-## Contact
-
-For licensing inquiries or permissions, contact: please add pr here to contact me.
+Read [GAME_MODE.md](GAME_MODE.md) before changing the game. How to run it locally is [PACKAGING.log](PACKAGING.log).

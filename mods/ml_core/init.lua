@@ -65,17 +65,20 @@ function ml.add_xp(player, n)
 	local meta = player:get_meta()
 	local xp = meta:get_int("ml_xp") + n
 	local level = ml.level(player)
-	local gained = false
+	local gained = 0
 	while xp >= 10 do
 		xp = xp - 10
 		level = level + 1
-		gained = true
-		minetest.chat_send_player(player:get_player_name(), "Level " .. level)
+		gained = gained + 1
+		minetest.chat_send_player(player:get_player_name(), "Level " .. level .. ". Skill point.")
 	end
 	meta:set_int("ml_xp", xp)
 	meta:set_int("ml_level", level)
-	if gained and ml.offer_pick then
-		ml.offer_pick(player)
+	if gained > 0 then
+		meta:set_int("ml_points", meta:get_int("ml_points") + gained)
+		if ml.offer_pick then
+			ml.offer_pick(player)
+		end
 	end
 end
 
@@ -144,10 +147,12 @@ local function clear_hero_meta(player)
 	meta:set_int("ml_level", 1)
 	meta:set_int("ml_pending", 0)
 	meta:set_int("ml_did_intro", 0)
+	meta:set_int("ml_points", 1)
 	meta:set_string("ml_owned", "")
 	meta:set_string("ml_brand_until", "")
 	for _, id in ipairs({"armor", "weapon", "fruit", "blood"}) do
 		meta:set_string("ml_cd_" .. id, "0")
+		meta:set_int("ml_rank_" .. id, 0)
 	end
 end
 
@@ -202,6 +207,6 @@ minetest.register_chatcommand("ml_reset", {
 			player:get_meta():set_int("ml_did_intro", 1)
 			ml.offer_pick(player)
 		end
-		return true, "Slice reset. Pick from the journal again."
+		return true, "Reset. One skill point is ready."
 	end,
 })

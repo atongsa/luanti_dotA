@@ -1,10 +1,11 @@
-2026-09-30 23:04 BST
-repo: atongsa/luanti_dotA
+2026-10-02 15:37 BST
+repo: atongsa/luantidyssey
 file: PACKAGING.log
 purpose: how to test this game on your machine, how to zip it, and how publishing works
 
 This is a log, not a design doc. The design is GAME_MODE.md. Read that first.
-The playable slice is smaller than the poem: hall, gold, lotus task, journal item picks, one wave.
+The name is luantidyssey. It is not a DotA game.
+The playable slice is smaller than the poem: hall, gold, lotus task, four skills, one wave.
 
 --------------------------------------------------------------------------------
 LOCAL TEST
@@ -16,33 +17,34 @@ LOCAL TEST
 2. Get this repository onto the machine (git clone or a zip of the repo).
 
 3. The game directory must contain game.conf directly inside it.
-   The directory name Luanti shows is the folder name. Use luanti_dotA.
+   The folder name Luanti uses is luantidyssey.
+   If you still have an old folder named luanti_dotA, rename it or replace it.
+   Old worlds made under the old name will not pick this up. Make a new world.
 
 4. Copy that folder into the user games directory. Typical paths:
-   Linux, older:        ~/.minetest/games/luanti_dotA
-   Linux, newer Luanti: ~/.local/share/luanti/games/luanti_dotA
-   Windows:             %APPDATA%\Luanti\games\luanti_dotA
-                        or %APPDATA%\Minetest\games\luanti_dotA
-   macOS:               ~/Library/Application Support/luanti/games/luanti_dotA
-                        or ~/Library/Application Support/minetest/games/luanti_dotA
+   Linux, older:        ~/.minetest/games/luantidyssey
+   Linux, newer Luanti: ~/.local/share/luanti/games/luantidyssey
+   Windows:             %APPDATA%\Luanti\games\luantidyssey
+                        or %APPDATA%\Minetest\games\luantidyssey
+   macOS:               ~/Library/Application Support/luanti/games/luantidyssey
+                        or ~/Library/Application Support/minetest/games/luantidyssey
    If none of those exist: open Luanti, Credits tab, "Open user data directory",
    then put the folder in games/ inside that directory.
 
 5. Start Luanti. Create a NEW world.
-   Game: luanti_dotA.
+   Game: luantidyssey.
    Any world name. Leave the mapgen dropdown alone.
    This game switches mapgen to singlenode and builds its own pad.
-   Do not open an old world from another game. The pad will not match.
-   If you already had a world from before the journal existed, make a new one.
+   Do not open an old world from another game.
 
 6. What you should see
    Missing textures are possible (purple/black). Point at a block: the name is the UI.
    F5 turns on the debug HUD if you need node names.
-   F7 twice switches to third person. This is not a locked isometric camera.
+   F7 twice switches to third person. That is the normal Luanti key, not a special camera.
 
 7. How to play the slice
    You stand near the Hall of Ithaca.
-   A journal opens almost at once. Take one item. See JOURNAL below.
+   A journal opens almost at once. Spend one skill point on one of the four skills.
    Punch a gold stone. +5 gold. It goes dull and comes back after a few seconds.
    Slot 1 is a sword. Slot 2 is the journal. Punch with the journal to open it again.
    About 12 seconds in: three suitors and one taller lead suitor walk the path.
@@ -52,44 +54,27 @@ LOCAL TEST
    Hall starts at 100.
    Win: lotus refused, all four dead, hall above 0.
    Lose: hall reaches 0.
-   Chat command /ml prints gold, hall, task, and skills.
-   Chat command /ml_reset (needs the server privilege) puts the slice back to the start
-   and opens the journal again.
+   Each level gives another skill point. Highest rank is 3.
+   Chat command /ml prints gold, hall, task, and skill ranks.
+   Chat command /ml_reset (needs the server privilege) puts the slice back to the start.
 
 8. If the pad is missing or you fall forever
-   You opened a world that was not created with this game, or mapgen already ran as something else.
-   Make a new world with game luanti_dotA. Do not copy an old world.mt over it.
+   Make a new world with game luantidyssey. Do not copy an old world.mt over it.
 
 --------------------------------------------------------------------------------
-JOURNAL
+SKILLS
 --------------------------------------------------------------------------------
 
-The journal is where you take items. Each item is one skill.
-Names are original. They are not copied from another game.
+Four skills. A point learns one or raises it, up to rank 3.
+Names are original.
 
-You pick when the match starts, and again each time you level.
-Level costs 10 experience. Kills and the lotus give experience.
-You can own more than one. You cannot take the same item twice.
+  armor   Bronze voice
+  weapon  Brand
+  fruit   Bitter fruit
+  blood   Cut the vein
 
-  armor   Banded hide     skill Bronze voice
-          Look at a suitor and cast. He stops for 3 seconds.
-          Suitors that touch you hit for 1 instead of 3.
-
-  weapon  Ash brand       skill Brand
-          For 8 seconds your punches hit much harder.
-          This is what makes the lead suitor die quickly.
-
-  fruit   Lotus fruit     skill Bitter fruit
-          Heal to full and take 5 gold.
-
-  blood   Dark blood      skill Cut the vein
-          Nearest suitor: if he is already wounded, he dies.
-          If he is healthy, he only loses a large cut of life.
-          Use Brand first, hit the lead, then blood, and he drops.
-
-Open: punch the journal item, or type /journal
-Cast: button in the journal, or /skill armor   /skill weapon   /skill fruit   /skill blood
-Each skill has a short wait. The game tells you if it is too soon.
+Open: punch the journal, or type /journal
+Cast: the Cast button, or /skill armor   /skill weapon   /skill fruit   /skill blood
 
 --------------------------------------------------------------------------------
 ZIP
@@ -98,9 +83,9 @@ ZIP
 The zip must have one top folder, and game.conf must be one level under it.
 
 Correct:
-  luanti_dotA/game.conf
-  luanti_dotA/mods/ml_core/init.lua
-  luanti_dotA/PACKAGING.log
+  luantidyssey/game.conf
+  luantidyssey/mods/ml_core/init.lua
+  luantidyssey/PACKAGING.log
 
 Wrong:
   game.conf sitting at the root of the zip
@@ -108,9 +93,9 @@ Wrong:
 
 From the parent of the repo folder:
 
-  zip -r luanti_dotA.zip luanti_dotA -x '*.git*'
+  zip -r luantidyssey.zip luantidyssey -x '*.git*'
 
-Test the zip by deleting the games/luanti_dotA folder, unzipping this archive into games/,
+Test the zip by deleting the games/luantidyssey folder, unzipping this archive into games/,
 and starting a new world as in LOCAL TEST.
 
 --------------------------------------------------------------------------------
@@ -120,24 +105,17 @@ PUBLISH
 The in-game browser is ContentDB: https://content.luanti.org/
 
 ContentDB only accepts packages under a license the FSF and/or the OSI call free.
-https://docs.luanti.org/about/contentdb/
-
-This repository is not under that kind of license. README.md says all rights reserved.
-ContentDB will not take this game while that stays true.
-This log does not change the license. Do not publish there unless you choose a free license on purpose.
+This game is MIT. See LICENSE. That grant is what makes a later publish possible.
+The package has not been submitted. Publishing still needs your ContentDB account.
 
 Until then, give people the git URL or the zip. They install it with LOCAL TEST.
 Luanti has no official "export this game as its own .exe" button.
-
-A private build that bundles the engine is a different project.
-The engine is LGPLv2.1. Your own game code can stay proprietary if you did not copy copyleft mods into it.
-Notes, not legal advice:
-https://docs.luanti.org/for-creators/distributing-games-outside-contentdb/
+The engine is LGPLv2.1. This game is MIT. Those are different licenses.
 
 --------------------------------------------------------------------------------
 WHAT IS NOT IN THIS SLICE
 --------------------------------------------------------------------------------
 
-No workers. No build menu. No cyclops or later stops. No second player.
-No real isometric camera. No ContentDB package id.
-Four items only. No skill trees beyond those four. No copied hero kits.
+No cyclops or later stops. No second player.
+No locked camera. No strategy base. This is not a DotA game.
+Greek models are not in yet. The pad is still flat color.

@@ -1,9 +1,9 @@
 -- The hero is the player. No separate hero entity in this slice.
 
 minetest.register_tool("ml_heroes:ash_sword", {
-	description = "Ash sword",
-	inventory_image = "ml_pixel.png^[colorize:#c8c8c8:255",
-	wield_image = "ml_pixel.png^[colorize:#c8c8c8:255",
+	description = "Bronze sword",
+	inventory_image = "ml_bronze.png",
+	wield_image = "ml_bronze.png",
 	range = 4,
 	tool_capabilities = {
 		full_punch_interval = 0.8,
@@ -17,7 +17,7 @@ local function arm(player)
 	local inv = player:get_inventory()
 	if inv:contains_item("main", "ml_heroes:ash_sword") then
 		return
-	end
+		end
 	inv:set_stack("main", 1, "ml_heroes:ash_sword")
 end
 
@@ -31,7 +31,7 @@ minetest.register_on_joinplayer(function(player)
 end)
 
 minetest.register_on_respawnplayer(function(player)
-	player:set_pos({x = 0, y = 10, z = -6})
+	player:set_pos({x = 0, y = 9, z = -8})
 	arm(player)
 	return true
 end)

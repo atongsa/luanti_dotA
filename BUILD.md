@@ -1,7 +1,7 @@
 BUILD.md
 Read GAME_MODE.md first. This file is only how to continue the build. It is not a second design.
 
-Last session: 2026-10-02. Repo atongsa/luantidyssey, branch main.
+Last session: 2026-10-03. Repo atongsa/luantidyssey, branch main.
 The game id and the install folder are luantidyssey. It is not a DotA game.
 Not run inside Luanti from the agent side. The owner tests on a laptop or desktop.
 
@@ -15,24 +15,35 @@ START HERE NEXT SESSION
 2. Read this file.
 3. Do not rebuild the slice. It already runs.
 4. Next unfinished work, unless GAME_MODE.md now says otherwise:
-   a. Greek look. The pad is still flat color squares, not Greek models.
-   b. The next story stop only: the cyclops. Do not jump ahead in the poem list.
+   The next story stop only: the cyclops. Do not jump ahead in the poem list.
+   Greek look is in as simple nodes, not statues. Do not restart it unless the owner asks.
 5. Same commit rules: message starts with "code from man_grok", then what, then the time.
 6. New idea with no overlap: add it to GAME_MODE.md. Overlap: rewrite that old idea only.
 7. Append CHANGES.log when the repo changes. Do not paste the chat into GAME_MODE.md.
+
+--------------------------------------------------------------------------------
+GREEK LOOK
+--------------------------------------------------------------------------------
+
+mods/ml_map/init.lua. Textures are written into the world folder and sent with dynamic_add_media.
+Sea, sand, marble court, stone path, marble columns, terracotta lintels, bronze altar (the hall), bronze offerings (the gold), olive and a lotus stand.
+Sky is a pale day blue. Spawn is 0, 9, -8.
+Old worlds rebuild when look_ver is below 2. That runs on load. Rejoin after pulling.
+Not carved statues. Not a mesh hero.
 
 --------------------------------------------------------------------------------
 WHAT ALREADY RUNS
 --------------------------------------------------------------------------------
 
 Luanti game. Copy the repo folder into the user games directory as luantidyssey.
-New world. Game name luantidyssey. Mapgen is forced to singlenode in ml_map.
-If an old folder is still named luanti_dotA, replace it. Old worlds from that name need a new world.
+Reopen the world after pulling so the shore rebuilds. Or make a new world.
+Game name luantidyssey. Mapgen is forced to singlenode in ml_map.
+If an old folder is still named luanti_dotA, replace it.
 Details of paths and the zip: PACKAGING.log. License is MIT (LICENSE, README.md).
 
-Player is Odysseus. Spawn near the hall, around 0,10,-6.
-Slot 1 sword ml_heroes:ash_sword. Slot 2 journal ml_journal:book.
-Punch gold stones for +5. Right-click the lotus stand to refuse it.
+Player is Odysseus. Spawn 0, 9, -8.
+Slot 1 bronze sword ml_heroes:ash_sword. Slot 2 journal ml_journal:book.
+Punch the bronze offerings for +5. Right-click the lotus stand to refuse it.
 About 12s later: 3 suitors plus 1 lead suitor walk +z toward the hall.
 Win: lotus refused, all four dead, hall above 0. Lose: hall at 0.
 Commands: /ml  /journal  /skill armor|weapon|fruit|blood  /ml_reset (priv server).
@@ -57,15 +68,15 @@ FILES
 
 mods/ml_core/init.lua     hall, gold, xp, levels, points, win/lose, /ml, /ml_reset
 mods/ml_journal/init.lua  the four skills
-mods/ml_map/init.lua      singlenode pad, hall, gold, lotus. ml.build_map
+mods/ml_map/init.lua      Greek shore. ml.build_map. look_ver 2
 mods/ml_creeps/init.lua   suitors, lead, stun, wave. entity ml_creeps:suitor
-mods/ml_heroes/init.lua   sword, nametag, respawn
+mods/ml_heroes/init.lua   bronze sword, nametag, respawn at 0,9,-8
 mods/ml_ui/init.lua       one HUD text line
 mods/ml_items/init.lua    voyage token on the lotus
 mods/ml_camera/init.lua   one look tilt. Do not extend this into a camera system.
 mods/ml_heroes/heroes/hero_example.lua   not loaded
 
-Mod storage (world): hall, wave (0 none, 1 running, 2 cleared), creeps_alive, lotus, outcome, map_built, ready.
+Mod storage (world): hall, wave (0 none, 1 running, 2 cleared), creeps_alive, lotus, outcome, map_built, look_ver, ready.
 
 --------------------------------------------------------------------------------
 DO NOT REDO
@@ -81,7 +92,7 @@ Do not switch the license off MIT unless the owner says so.
 LEFT UNFINISHED
 --------------------------------------------------------------------------------
 
-Greek meshes and textures.
 Poem stops after the lotus. Next one is the cyclops.
+Carved statues and a mesh hero. The Greek look is tiles and node boxes.
 A real ContentDB upload. The MIT grant is in the repo. The package was not submitted.
 The GitHub About line may still say "a dotA game". Change that sentence on the GitHub page if it is still there.
